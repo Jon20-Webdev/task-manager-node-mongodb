@@ -1,5 +1,5 @@
 const getAllTasks = (req, res) => {
-    res.send('All Items...')
+    res.send('All Items Updated...')
 };
 
 const createTasks = (req, res) => {
