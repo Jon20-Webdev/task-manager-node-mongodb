@@ -1,10 +1,17 @@
+const Task = require('../models/Task');
+
 const getAllTasks = (req, res) => {
-    res.send('All Items Updated...')
+    res.send('All NEW database Items Updated...')
 };
 
-const createTasks = (req, res) => {
-    res.send('Create Tasks here...')
-};
+const createTasks = async (req, res) => {
+    try {
+        const task = await Task.create(req.body)
+        res.status(201).json({ task })
+    } catch (error) {
+        res.status(500).json({ msg: error })
+    }
+};  // created how to handle error by sending error msg
 
 const getTask = (req, res) => {
     res.send('Get Task here...')

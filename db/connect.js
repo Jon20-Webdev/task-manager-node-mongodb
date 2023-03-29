@@ -8,6 +8,6 @@ const connectDB = (url) => {
         useFindAndModify: false,
         useUnifiedTopology: true
     })
-}
+};  // please check the email notes for connectionString of dotenv
 
 module.exports = connectDB;

@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const tasks = require('./routes/tasks');
-const connectDB = require('./db/connect')
-require('dotenv').config()
+const connectDB = require('./db/connect')   //connect from mongoDB
+require('dotenv').config()  // This is from the connection string
 
 app.use(express.json());
 app.use(('/api/v1/tasks'), tasks);
