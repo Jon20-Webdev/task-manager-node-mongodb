@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const tasks = require('./routes/tasks');
+const notFound = require('./middleware/not-found')
 const connectDB = require('./db/connect')   //connect from mongoDB
 require('dotenv').config()  // This is from the connection string
 
 app.use(express.static('./public'))
 app.use(express.json());
 app.use(('/api/v1/tasks'), tasks);
+app.use(notFound)
 
 // app.get(('/hello'), (req, res) => {
 //     res.send('Hello, welcome to homepage!')
