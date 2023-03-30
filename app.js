@@ -5,12 +5,13 @@ const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect')   //connect from mongoDB
 require('dotenv').config()  // This is from the connection string
 
+app.use(express.static('./public'))
 app.use(express.json());
 app.use(('/api/v1/tasks'), tasks);
 
-app.get(('/hello'), (req, res) => {
-    res.send('Hello, welcome to homepage!')
-});
+// app.get(('/hello'), (req, res) => {
+//     res.send('Hello, welcome to homepage!')
+// });
 
 const start = async () => {
     try {
