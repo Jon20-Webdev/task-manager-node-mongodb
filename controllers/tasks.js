@@ -1,7 +1,12 @@
 const Task = require('../models/Task');
 
-const getAllTasks = (req, res) => {
-    res.send('All NEW database Items Updated...')
+const getAllTasks = async (req, res) => {
+    try {
+        const tasks = await Task.find({})
+        res.status(200).json({tasks})
+    } catch (error) {
+        res.status(500).json({msg: error})
+    }
 };
 
 const createTasks = async (req, res) => {
@@ -13,16 +18,35 @@ const createTasks = async (req, res) => {
     }
 };  // created how to handle error by sending error msg
 
-const getTask = (req, res) => {
-    res.send('Get Task here...')
+const getTask = async (req, res) => {
+    try {
+        const { id: taskID} = req.params
+        const task = await Task.findOne({_id: taskID})
+        if (!task) {
+            return res.status(404).json({msg: `Error 404 no task found on ID: ${taskID}`})
+        }
+        res.status(200).json({task})
+    } catch (error) {
+        res.status(500).json({msg: error})
+    }
 };
 
-const updateTask = (req, res) => {
+const updateTask = (req, res) => {  // continuation: we are here...
     res.send('Update Task here...')
 };
 
-const deleteTask = (req, res) => {
-    res.send('Delete Task here!')
+const deleteTask = async (req, res) => {
+    try {
+        const {id} = req.params
+        const task = await Task.findOneAndDelete({_id: id})
+        if (!task) {
+            res.status(404).json({msg: `Error 404 task not found on id:${id} `})
+        }
+        res.status(200).json({task})
+        // or you can use res.status(200).json({task: null, status: "success"})
+    } catch (error) {
+        res.status(500).json({msg: error})
+    }
 };
 
 module.exports = {
