@@ -1,19 +1,24 @@
 const express = require('express');
 const app = express();
-const port = 3000;
 const tasks = require('./routes/tasks');
+const errorHandler = require('./middleware/error-handler')
 const notFound = require('./middleware/not-found')
 const connectDB = require('./db/connect')   //connect from mongoDB
 require('dotenv').config()  // This is from the connection string
+const port = process.env.PORT || 3000;
 
 app.use(express.static('./public'))
 app.use(express.json());
 app.use(('/api/v1/tasks'), tasks);
-app.use(notFound)
+app.use(notFound);
+app.use(errorHandler);
+
 
 // app.get(('/hello'), (req, res) => {
 //     res.send('Hello, welcome to homepage!')
 // });
+
+
 
 const start = async () => {
     try {
@@ -28,5 +33,5 @@ const start = async () => {
 
 start()
 
-//where on 1:16:48 
-// creating schema
+//where on
+    // creating schema
